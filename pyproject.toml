@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "py-cdhit"
+authors = [
+    {name = "Xiao Yuan", email = "yuanx749@gmail.com"},
+]
+description = "A Python interface for CD-HIT package."
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["sequence-analysis"]
+license = {file = "LICENSE"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "Operating System :: POSIX :: Linux",
+]
+dependencies = [
+    "pandas",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "black==23.3.0",
+    "flake8==4.0.1",
+    "isort==5.12.0",
+    "pytest",
+    "pytest-cov",
+]
+doc = [
+    "sphinx==5.3.0",
+    "furo==2022.12.7",
+    "myst-nb==0.17.1",
+    "myst-parser==0.18.1",
+    "sphinx-copybutton==0.5.1",
+]
+
+[project.urls]
+Homepage = "https://yuanx749.github.io/py-cdhit/"
+Documentation = "https://yuanx749.github.io/py-cdhit/"
+Repository = "https://github.com/yuanx749/py-cdhit"
+
+[tool.setuptools]
+packages = ["pycdhit"]
+
+[tool.setuptools.dynamic]
+version = {attr = "pycdhit.VERSION"}
+
+[tool.black]
+line-length = 79
