@@ -1,4 +1,4 @@
-"""A module parse the output files of CD-HIT."""
+"""A module parsing the output files of CD-HIT."""
 
 import re
 from pathlib import Path

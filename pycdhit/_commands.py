@@ -1,4 +1,4 @@
-"""A module wraps the programs of CD-HIT."""
+"""A module wrapping the programs of CD-HIT."""
 
 import os
 import subprocess
@@ -15,34 +15,52 @@ PROGS = [
 ]
 
 
-def _create_function(name: str):
-    def function(**kwargs) -> str:
-        dir_ = Path(os.environ.get("CD_HIT_DIR", "~/cd-hit")).expanduser()
-        keys = (f"-{k.replace('_', '-')}" for k in kwargs)
-        values = map(str, kwargs.values())
-        command = [dir_ / name] + list(chain(*zip(keys, values)))
-        try:
-            proc = subprocess.run(
-                command,
-                capture_output=True,
-                check=True,
-                text=True,
-            )
-            return proc.stdout
-        except subprocess.CalledProcessError as err:
-            print(err.stderr)
-            raise
-        except FileNotFoundError:
-            print(command)
-            raise
+def _format_options(kwargs: dict):
+    keys = (f"-{k.replace('_', '-')}" for k in kwargs)
+    values = map(str, kwargs.values())
+    options = chain(*zip(keys, values))
+    return options
+
+
+def _format_program(prog: str, path: str = None):
+    if path:
+        dir_ = Path(path).expanduser().resolve()
+        return dir_ / prog
+    return prog
+
+
+def _run(command):
+    try:
+        return subprocess.run(
+            command,
+            capture_output=True,
+            check=True,
+            text=True,
+        )
+    except subprocess.CalledProcessError as err:
+        print(err.stderr)
+        raise
+    except FileNotFoundError:
+        print(command)
+        raise
+
+
+def _create_function(name: str, env_var: str):
+    def function(**kwargs) -> subprocess.CompletedProcess:
+        command = [_format_program(name, os.getenv(env_var))]
+        command.extend(_format_options(kwargs))
+        return _run(command)
 
     function.__doc__ = f"""Run command {name}.
 
+        If environment variable `{env_var}` exists,
+        it will be used as the path of the program.
+
         Args:
-            kwargs: Options and arguments of the command.
+            **kwargs: Options and arguments of the command.
 
         Returns:
-            The stdout of the command.
+            The `~subprocess.CompletedProcess`.
 
         Raises:
             `~subprocess.CalledProcessError`: If command returns
@@ -56,6 +74,6 @@ def _create_function(name: str):
 
 functions = [prog.replace("-", "_") for prog in PROGS]
 for prog, fun in zip(PROGS, functions):
-    globals()[fun] = _create_function(prog)
+    globals()[fun] = _create_function(prog, "CD_HIT_DIR")
 
 __all__ = functions

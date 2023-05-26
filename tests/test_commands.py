@@ -1,5 +1,6 @@
+import os
 from pathlib import Path
-from subprocess import CalledProcessError
+from subprocess import CalledProcessError, CompletedProcess
 
 import pytest
 
@@ -25,10 +26,11 @@ def cdhit_temp_files():
 
 
 def test_cd_hit(cdhit_temp_files):
+    os.environ["CD_HIT_DIR"] = "~/cd-hit"
     in_path, out_path = cdhit_temp_files
     in_path.write_text(FASTA)
     try:
-        stdout = _commands.cd_hit_est(i=str(in_path), o=str(out_path))
-        assert isinstance(stdout, str)
+        res = _commands.cd_hit_est(i=str(in_path), o=str(out_path))
+        assert isinstance(res, CompletedProcess)
     except (CalledProcessError, FileNotFoundError):
         pass

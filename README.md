@@ -16,8 +16,8 @@ A simple example on Linux is provided below. See the [notebook](docs/examples/ex
 ```Python
 from pycdhit import cd_hit, read_clstr
 
-stdout = cd_hit(
-    i="./docs/examples/APD.fasta",
+res = cd_hit(
+    i="./docs/examples/apd.fasta",
     o="./docs/examples/out",
     c=0.7,
     d=0,
