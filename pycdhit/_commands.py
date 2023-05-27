@@ -14,6 +14,10 @@ PROGS = [
     "cd-hit-454",
 ]
 
+functions = [prog.replace("-", "_") for prog in PROGS]
+
+__all__ = functions
+
 
 def _format_options(kwargs: dict):
     keys = (f"-{k.replace('_', '-')}" for k in kwargs)
@@ -22,11 +26,11 @@ def _format_options(kwargs: dict):
     return options
 
 
-def _format_program(prog: str, path: str = None):
+def _format_program(name: str, path: str = None):
     if path:
         dir_ = Path(path).expanduser().resolve()
-        return dir_ / prog
-    return prog
+        return dir_ / name
+    return name
 
 
 def _run(command):
@@ -38,6 +42,7 @@ def _run(command):
             text=True,
         )
     except subprocess.CalledProcessError as err:
+        print(err.stdout)
         print(err.stderr)
         raise
     except FileNotFoundError:
@@ -57,7 +62,7 @@ def _create_function(name: str, env_var: str):
         it will be used as the path of the program.
 
         Args:
-            **kwargs: Options and arguments of the command.
+            **kwargs: Parameters and arguments of the command.
 
         Returns:
             The `~subprocess.CompletedProcess`.
@@ -72,8 +77,5 @@ def _create_function(name: str, env_var: str):
     return function
 
 
-functions = [prog.replace("-", "_") for prog in PROGS]
 for prog, fun in zip(PROGS, functions):
     globals()[fun] = _create_function(prog, "CD_HIT_DIR")
-
-__all__ = functions

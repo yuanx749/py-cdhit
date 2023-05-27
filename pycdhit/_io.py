@@ -1,10 +1,13 @@
 """A module parsing the output files of CD-HIT."""
 
 import re
+from itertools import chain
 from pathlib import Path
 from typing import Union
 
 import pandas as pd
+
+__all__ = ["read_fasta", "write_fasta", "read_clstr"]
 
 FilePath = Union[str, Path]
 
@@ -20,12 +23,16 @@ def read_fasta(file: FilePath) -> pd.DataFrame:
 
     """
     rows = []
+    columns = ["identifier", "sequence"]
     with open(file) as f:
         # skip text before the first record
         for line in f:
             if line[0] == ">":
                 identifier = line[1:].rstrip()
                 break
+        else:
+            # empty file
+            return pd.DataFrame.from_records([], columns=columns)
         seq = ""
         for line in f:
             if line[0] != ">":
@@ -35,7 +42,19 @@ def read_fasta(file: FilePath) -> pd.DataFrame:
                 identifier = line[1:].rstrip()
                 seq = ""
         rows.append((identifier, seq))
-    return pd.DataFrame.from_records(rows, columns=["identifier", "sequence"])
+    return pd.DataFrame.from_records(rows, columns=columns)
+
+
+def write_fasta(file: FilePath, data: pd.DataFrame):
+    """Write fasta data to a file.
+
+    Args:
+        file: A file path.
+        data: A `~pandas.DataFrame` with columns 'identifier' and 'sequence'.
+
+    """
+    data = "\n".join(chain(*zip(">" + data["identifier"], data["sequence"])))
+    Path(file).write_text(data)
 
 
 def read_clstr(file: FilePath) -> pd.DataFrame:
@@ -91,6 +110,3 @@ def read_clstr(file: FilePath) -> pd.DataFrame:
         if any(lst := locals_[col_name])
     }
     return pd.DataFrame(data)
-
-
-__all__ = ["read_fasta", "read_clstr"]
