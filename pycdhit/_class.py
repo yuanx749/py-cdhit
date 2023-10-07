@@ -22,6 +22,8 @@ class CommandBase:
 
     Attributes:
         options (dict): Parameters and arguments.
+        subprocess (`~subprocess.CompletedProcess`): The finished process.
+            Default `None`.
 
     """
 
@@ -30,6 +32,7 @@ class CommandBase:
         self.path = path
         self.options = {}
         self._prog = _format_program(prog, path)
+        self.subprocess = None
 
     def help(self):
         """Print help message."""
@@ -57,7 +60,8 @@ class CommandBase:
 
         """
         command = [self._prog] + list(_format_options(self.options))
-        return _run(command)
+        self.subprocess = _run(command)
+        return self.subprocess
 
 
 class CDHIT(CommandBase):
@@ -82,7 +86,6 @@ class CDHIT(CommandBase):
                 f"'{prog}' not in {{'cd-hit', 'cd-hit-2d', 'cd-hit-est', 'cd-hit-est-2d'}}"  # noqa: E501
             )
         super().__init__(prog, path)
-        self.subprocess = None
 
     def help(self):
         try:
