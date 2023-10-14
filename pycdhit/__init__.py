@@ -4,7 +4,7 @@ from ._class import *  # noqa: F403
 from ._commands import *  # noqa: F403
 from ._io import *  # noqa: F403
 
-VERSION = "0.4.0"
+VERSION = "0.5.0"
 
 __all__ = [  # noqa: F405
     "CommandBase",
@@ -18,4 +18,6 @@ __all__ = [  # noqa: F405
     "cd_hit_est_2d",
     "cd_hit_div",
     "cd_hit_454",
+    "cd_hit_dup",
+    "cd_hit_lap",
 ]

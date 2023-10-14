@@ -13,10 +13,15 @@ PROGS = [
     "cd-hit-div",
     "cd-hit-454",
 ]
-
 functions = [prog.replace("-", "_") for prog in PROGS]
 
-__all__ = functions
+AUXTOOLS = [
+    "cd-hit-dup",
+    "cd-hit-lap",
+]
+aux_functions = [prog.replace("-", "_") for prog in AUXTOOLS]
+
+__all__ = functions + aux_functions
 
 
 def _format_options(kwargs: dict):
@@ -79,3 +84,6 @@ def _create_function(name: str, env_var: str):
 
 for prog, fun in zip(PROGS, functions):
     globals()[fun] = _create_function(prog, "CD_HIT_DIR")
+
+for prog, fun in zip(AUXTOOLS, aux_functions):
+    globals()[fun] = _create_function(prog, "CD_HIT_AUXTOOLS_DIR")
