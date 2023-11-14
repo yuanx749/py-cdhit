@@ -47,6 +47,7 @@ Install from source after git clone:
 
 ```bash
 cd py-cdhit
-pip install -e '.[dev,doc]'
+pip install -e '.[dev]'
+pip install -r docs/requirements.txt
 python -m pytest --cov-report term-missing --cov=pycdhit tests/
 ```

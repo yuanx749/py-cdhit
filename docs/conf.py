@@ -22,7 +22,6 @@ add_module_names = False
 
 html_theme = "furo"
 html_title = project
-html_static_path = ["_static"]
 
 autodoc_default_options = {
     "member-order": "bysource",
