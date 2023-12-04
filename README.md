@@ -5,9 +5,11 @@
 
 A Python interface for CD-HIT package.
 
+Read the documentation [here](https://yuanx749.github.io/py-cdhit/).
+
 ## Description
 
-This package provides a Python interface for CD-HIT (Cluster Database at High Identity with Tolerance), which has programs for clustering biological sequences with a very fast speed. Specifically, it contains functions that run commands and read the output files, thus reducing the overhead of switching between languages and writing parsing code when using Python in the data analysis workflows.
+This package provides a Python interface for CD-HIT (Cluster Database at High Identity with Tolerance), which has programs for clustering biological sequences with a very fast speed. Specifically, this package contains functions that run commands and read the output files, thus reducing the overhead of switching between languages and writing parsing code when using Python in the data analysis workflows.
 
 ## Usage
 
@@ -33,9 +35,18 @@ Please visit CD-HIT's [documentations](https://github.com/weizhongli/cdhit/wiki)
 
 ### Install
 
-First Install CD-HIT. Then install this package as follows.
+First Install CD-HIT. [Mamba](https://mamba.readthedocs.io/) is recommended. For example, to create an environment and install:
 
-Install from PyPI:
+```bash
+mamba create -n myenv python=3.10
+mamba activate myenv
+```
+
+```bash
+mamba install -c bioconda cd-hit
+```
+
+Then install this package from PyPI:
 
 ```bash
 pip install py-cdhit
