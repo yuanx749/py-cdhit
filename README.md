@@ -1,6 +1,7 @@
 # py-cdhit
 
 [![PyPI version](https://badge.fury.io/py/py-cdhit.svg)](https://badge.fury.io/py/py-cdhit)
+[![Downloads](https://static.pepy.tech/badge/py-cdhit/month)](https://pepy.tech/project/py-cdhit)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/197a0be6dcd14961b919e666a0de39eb)](https://app.codacy.com/gh/yuanx749/py-cdhit/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 A Python interface for CD-HIT package.
@@ -43,7 +44,7 @@ mamba activate myenv
 ```
 
 ```bash
-mamba install -c bioconda cd-hit
+mamba install -c bioconda cd-hit cd-hit-auxtools
 ```
 
 Then install this package from PyPI:
