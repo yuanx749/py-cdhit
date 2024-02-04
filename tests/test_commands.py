@@ -30,7 +30,7 @@ def test_cd_hit(cdhit_temp_files):
     in_path, out_path = cdhit_temp_files
     in_path.write_text(FASTA)
     try:
-        res = _commands.cd_hit_est(i=str(in_path), o=str(out_path))
+        res = _commands.cd_hit_est(i=in_path, o=out_path)
         assert isinstance(res, CompletedProcess)
     except (CalledProcessError, FileNotFoundError):
         pass
