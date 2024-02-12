@@ -55,12 +55,13 @@ def _run(command):
         raise
 
 
-def _create_function(name: str, env_var: str):
+def _create_function(name: str, func_name: str, env_var: str):
     def function(**kwargs) -> subprocess.CompletedProcess:
         command = [_format_program(name, os.getenv(env_var))]
         command.extend(_format_options(kwargs))
         return _run(command)
 
+    function.__name__ = func_name
     function.__doc__ = f"""Run command {name}.
 
         If environment variable `{env_var}` exists,
@@ -82,8 +83,8 @@ def _create_function(name: str, env_var: str):
     return function
 
 
-for prog, fun in zip(PROGS, functions):
-    globals()[fun] = _create_function(prog, "CD_HIT_DIR")
+for prog, func in zip(PROGS, functions):
+    globals()[func] = _create_function(prog, func, "CD_HIT_DIR")
 
-for prog, fun in zip(AUXTOOLS, aux_functions):
-    globals()[fun] = _create_function(prog, "CD_HIT_AUXTOOLS_DIR")
+for prog, func in zip(AUXTOOLS, aux_functions):
+    globals()[func] = _create_function(prog, func, "CD_HIT_AUXTOOLS_DIR")
