@@ -80,11 +80,17 @@ class CDHIT(CommandBase):
 
     """
 
+    _progs = {
+        "cd-hit",
+        "cd-hit-2d",
+        "cd-hit-est",
+        "cd-hit-est-2d",
+        "cd-hit-454",
+    }
+
     def __init__(self, prog: str = "cd-hit", path: str = None):
-        if prog not in {"cd-hit", "cd-hit-2d", "cd-hit-est", "cd-hit-est-2d"}:
-            raise ValueError(
-                f"'{prog}' not in {{'cd-hit', 'cd-hit-2d', 'cd-hit-est', 'cd-hit-est-2d'}}"  # noqa: E501
-            )
+        if prog not in self._progs:
+            raise ValueError(f"'{prog}' not in {self._progs}")
         super().__init__(prog, path)
 
     def help(self):
