@@ -71,12 +71,16 @@ def read_clstr(file: FilePath) -> pd.DataFrame:
     identifier, cluster, size, is_representative, identity = [], [], [], [], []
     coverage, strand = [], []  # distance is not used
     with open(file) as f:
+        bak = f.read(1) != ">"
+    with open(file) as f:
         for line in f:
             if line[0] == ">":
                 idx = int(re.search(r">Cluster (\d+)", line).group(1))
                 continue
-            cluster.append(idx)
             line = line.split()
+            if bak:
+                idx = int(line[0])
+            cluster.append(idx)
             size.append(int(re.search(r"(\d+)(aa|nt),", line[1]).group(1)))
             identifier.append(re.search(r">(.+)\.{3}", line[2]).group(1))
             if line[3] == "*":
