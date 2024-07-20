@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import warnings
 from itertools import chain
 from pathlib import Path
 
@@ -40,7 +41,7 @@ def _format_program(name: str, path: str = None):
 
 def _run(command):
     try:
-        return subprocess.run(
+        completed_process = subprocess.run(
             command,
             capture_output=True,
             check=True,
@@ -53,6 +54,9 @@ def _run(command):
     except FileNotFoundError:
         print(command)
         raise
+    if "Warning" in completed_process.stdout:
+        warnings.warn(completed_process.stdout)
+    return completed_process
 
 
 def _create_function(name: str, func_name: str, env_var: str):
