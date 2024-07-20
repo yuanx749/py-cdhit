@@ -34,3 +34,14 @@ def test_cd_hit(cdhit_temp_files):
         assert isinstance(res, CompletedProcess)
     except (CalledProcessError, FileNotFoundError):
         pass
+
+
+def test_warning(cdhit_temp_files):
+    os.environ["CD_HIT_DIR"] = "~/cd-hit"
+    in_path, out_path = cdhit_temp_files
+    in_path.write_text(FASTA)
+    try:
+        with pytest.warns(UserWarning, match="Warning"):
+            _commands.cd_hit_div(i=in_path, o=out_path, div=1)
+    except (CalledProcessError, FileNotFoundError):
+        pass
