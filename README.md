@@ -34,8 +34,6 @@ Please visit CD-HIT's [documentations](https://github.com/weizhongli/cdhit/wiki)
 
 ## Installation
 
-### Install
-
 First Install CD-HIT. [Mamba](https://mamba.readthedocs.io/) is recommended. For example, to create an environment and install:
 
 ```bash
@@ -53,7 +51,7 @@ Then install this package from PyPI:
 pip install py-cdhit
 ```
 
-### Develop
+## Development
 
 Install from source after git clone:
 

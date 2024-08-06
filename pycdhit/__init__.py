@@ -4,7 +4,7 @@ from ._class import *  # noqa: F403
 from ._commands import *  # noqa: F403
 from ._io import *  # noqa: F403
 
-VERSION = "1.1.0"
+VERSION = "1.1.1"
 
 __all__ = [  # noqa: F405
     "CommandBase",
