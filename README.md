@@ -4,13 +4,11 @@
 [![Downloads](https://static.pepy.tech/badge/py-cdhit/month)](https://pepy.tech/project/py-cdhit)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/197a0be6dcd14961b919e666a0de39eb)](https://app.codacy.com/gh/yuanx749/py-cdhit/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-A Python interface for CD-HIT package.
-
-Read the documentation [here](https://yuanx749.github.io/py-cdhit/).
-
-## Description
+A Python package for CD-HIT, clustering protein or nucleotide sequences.
 
 This package provides a Python interface for CD-HIT (Cluster Database at High Identity with Tolerance), which has programs for clustering biological sequences with a very fast speed. Specifically, this package contains functions that run commands and read the output files, thus reducing the overhead of switching between languages and writing parsing code when using Python in the data analysis workflows.
+
+Read the documentation [here](https://yuanx749.github.io/py-cdhit/).
 
 ## Usage
 
