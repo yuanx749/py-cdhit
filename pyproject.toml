@@ -28,9 +28,7 @@ dynamic = ["version"]
 [project.optional-dependencies]
 dev = [
     "pre-commit==3.3.2",
-    "black==23.3.0",
-    "flake8==6.0.0",
-    "isort==5.12.0",
+    "ruff==0.6.9",
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
     "notebook>=6.5.4",
@@ -47,5 +45,9 @@ packages = ["pycdhit"]
 [tool.setuptools.dynamic]
 version = {attr = "pycdhit.VERSION"}
 
-[tool.black]
+[tool.ruff]
 line-length = 79
+extend-exclude = ["*.ipynb"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
