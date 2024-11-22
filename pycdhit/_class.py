@@ -69,7 +69,7 @@ class CDHIT(CommandBase):
 
     Args:
         prog: Name of the program.
-            {'cd-hit', 'cd-hit-2d', 'cd-hit-est', 'cd-hit-est-2d'},
+            {'cd-hit', 'cd-hit-2d', 'cd-hit-est', 'cd-hit-est-2d', 'cd-hit-454'},
             default 'cd-hit'.
         path: Path of the program. Default `None`.
 
